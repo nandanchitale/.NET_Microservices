@@ -1,4 +1,5 @@
 using PlatformService.Models;
+using Microsoft.AspNetCore.Builder;
 
 namespace PlatformService.Data;
 
@@ -6,9 +7,9 @@ public class PrepareDb
 {
     public static void PrepPopulation(IApplicationBuilder app)
     {
-        using (var serviceScoped = app.ApplicationServices.CreateScope())
+        using (IServiceScope serviceScope = app.ApplicationServices.CreateScope())
         {
-            SeedData(serviceScoped.ServiceProvider.GetService<AppDbContext>());
+            SeedData(serviceScope.ServiceProvider.GetService<AppDbContext>());
         }
     }
 
