@@ -7,7 +7,7 @@ using PlatformService.Models;
 namespace PlatformService.Controllers;
 
 [ApiController]
-[Route("api/[controller]/{action}")]
+[Route("api/[controller]/[action]")]
 public class PlatformsController: ControllerBase{
 
     private readonly IPlatformRepository _platform;
@@ -37,8 +37,8 @@ public class PlatformsController: ControllerBase{
         return returnValue;
     }
 
-    [HttpGet("{id}")]
-    public ActionResult<PlatformReadDto> Get(int id){
+    [HttpGet("{id}", Name ="GetPlatformById")]
+    public ActionResult<PlatformReadDto> GetPlatformById(int id){
         ActionResult<PlatformReadDto> returnValue = NotFound();
         
         try{
@@ -54,7 +54,7 @@ public class PlatformsController: ControllerBase{
     }
 
     [HttpPost]
-    public ActionResult<PlatformReadDto> Create([FromBody]PlatformCreateDto platformCreateDto){
+    public ActionResult<PlatformReadDto> Create(PlatformCreateDto platformCreateDto){
         ActionResult<PlatformReadDto> returnValue = NotFound();
         
         try{
@@ -63,6 +63,11 @@ public class PlatformsController: ControllerBase{
             _platform.SaveChanges();
 
             PlatformReadDto platformReadDto = _mapper.Map<PlatformReadDto>(PlatformModel);
+            return CreatedAtRoute(
+                nameof(GetPlatformById),            // route name
+                new {Id = platformReadDto.Id},      // route value
+                platformReadDto                     // value
+            );
         }
         catch(Exception ex){
             Console.BackgroundColor = ConsoleColor.Red;
