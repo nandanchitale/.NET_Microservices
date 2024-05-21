@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PlatformService.Data.IRepository;
 using PlatformService.DTO;
 using PlatformService.Models;
+using PlatformService.SyncDataServices.Interfaces;
 
 namespace PlatformService.Controllers;
 
@@ -13,13 +14,23 @@ public class PlatformsController : ControllerBase
 
     private readonly IPlatformRepository _platform;
     private readonly IMapper _mapper;
+    private ICommandDataClient _commandDataClient;
 
-    public PlatformsController(IPlatformRepository platform, IMapper mapper)
+    public PlatformsController(
+        IPlatformRepository platform,
+        IMapper mapper,
+        ICommandDataClient commandDataClient
+    )
     {
         _mapper = mapper;
         _platform = platform;
+        _commandDataClient = commandDataClient;
     }
 
+    /// <summary>
+    /// Method to Get List of all platforms
+    /// </summary>
+    /// <returns>Platforms Enumarable</returns>
     [HttpGet]
     public ActionResult<IEnumerable<PlatformReadDto>> Get()
     {
@@ -41,6 +52,11 @@ public class PlatformsController : ControllerBase
         return returnValue;
     }
 
+    /// <summary>
+    /// Method to get Platform specified by ID
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns>One Specific Platform Read DTO</returns>
     [HttpGet("{id}", Name = "GetPlatformById")]
     public ActionResult<PlatformReadDto> GetPlatformById(int id)
     {
@@ -60,8 +76,13 @@ public class PlatformsController : ControllerBase
         return returnValue;
     }
 
+    /// <summary>
+    /// Method to create new platform
+    /// </summary>
+    /// <param name="platformCreateDto"></param>
+    /// <returns>Newly created Platform Read DTO</returns>
     [HttpPost]
-    public ActionResult<PlatformReadDto> Create(PlatformCreateDto platformCreateDto)
+    public async Task<ActionResult<PlatformReadDto>> Create(PlatformCreateDto platformCreateDto)
     {
         ActionResult<PlatformReadDto> returnValue = NotFound();
 
@@ -72,7 +93,11 @@ public class PlatformsController : ControllerBase
             _platform.SaveChanges();
 
             PlatformReadDto platformReadDto = _mapper.Map<PlatformReadDto>(PlatformModel);
-            return CreatedAtRoute(
+
+            // Demo Code
+            await _commandDataClient.SendPlatformToCommand(platformReadDto);
+
+            returnValue = CreatedAtRoute(
                 nameof(GetPlatformById),            // route name
                 new { Id = platformReadDto.Id },      // route value
                 platformReadDto                     // value
