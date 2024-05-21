@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
         - name: platformservice
-          image: nandanchitale/microservice-demo:platformservice_1.1
+          image: nandanchitale/microservice-demo:platformservice_1.1.01
