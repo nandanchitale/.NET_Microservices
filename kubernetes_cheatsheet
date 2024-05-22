@@ -1,0 +1,26 @@
+# Get All Deployements
+kubectl get deployments
+
+# Get All Services
+kubectl get services
+
+# Get All Pods
+kubectl get pods
+
+# Get list of namespace
+kubectl get namespaces
+
+# Apply deployement from yaml file
+kubectl apply -f <filepath>
+
+# Apply nginx ingress
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.10.1/deploy/static/provider/cloud/deploy.yaml
+
+# Get pods based on namespace
+kubectl get pods --namespace=<namespace>
+
+# Get services based on namespace
+kubectl get services --namespace=<namespace>
+
+# Get deployments based on namespace
+kubectl get deployments --namespace=<namespace>
