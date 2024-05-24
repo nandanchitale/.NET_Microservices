@@ -24,17 +24,31 @@ builder.Services.AddSwaggerGen(options =>
     options.ResolveConflictingActions(apiDescription => apiDescription.First());
 });
 
+// Setup SQL server database
+if (builder.Environment.IsProduction())
+{
+    Console.WriteLine($"--> Application Environment IsProduction ? {builder.Environment.IsProduction()}");
+    Console.WriteLine("--> Using SQL Server DB");
+    Console.WriteLine($"--> Connection String : {builder.Configuration.GetConnectionString("PlatformsConnection")}");
+    builder.Services.AddDbContext<AppDbContext>(
+        opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("PlatformsConnection"))
+    );
+}
+// Setup in memory database
+else
+{
+    Console.WriteLine("--> Using InMem DB");
+    builder.Services.AddDbContext<AppDbContext>(
+        opt => opt.UseInMemoryDatabase("InMemoryDb")
+    );
+}
+
 builder.Services.AddHttpClient<ICommandDataClient, HttpCommandDataClient>();
 
 builder.Services.AddControllers();
 
 // Add Automapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
-// Adding dbcontext 
-builder.Services.AddDbContext<AppDbContext>(
-    opt => opt.UseInMemoryDatabase("InMemoryDb")
-);
 
 // Dependancy Injection
 builder.Services.AddScoped<IPlatformRepository, PlatformRepository>();
@@ -61,6 +75,6 @@ app.UseHttpsRedirection();
 
 app.MapControllers();
 
-PrepareDb.PrepPopulation(app);
+PrepareDb.PrepPopulation(app, app.Environment.IsProduction());
 
 app.Run();

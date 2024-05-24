@@ -1,6 +1,12 @@
 # Get All Deployements
 kubectl get deployments
 
+# Restart the deployment
+kubectl rollout restart deployment <deployment name>
+
+# Delete the deployment
+kubectl delete deployment <deployment name>
+
 # Get All Services
 kubectl get services
 
@@ -24,3 +30,15 @@ kubectl get services --namespace=<namespace>
 
 # Get deployments based on namespace
 kubectl get deployments --namespace=<namespace>
+
+# Get Persistance Volume Claim
+kubectl get pvc
+
+# Get Storage Classees
+kubectl get storageclasses
+
+# Craete Secret
+kubectl create secret <type> <name> --from-literal=SA_PASSWORD="<password>"
+
+# Get list of secrets
+kubectl get secrets

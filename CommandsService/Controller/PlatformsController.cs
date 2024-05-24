@@ -1,3 +1,7 @@
+using AutoMapper;
+using CommandsService.Data.IRepository;
+using CommandsService.DTO;
+using CommandsService.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CommandsService.Controllers;
@@ -6,9 +10,16 @@ namespace CommandsService.Controllers;
 [Route("api/c/[controller]/[action]")]
 public class PlatformsController : ControllerBase
 {
-    public PlatformsController()
-    {
+    private readonly ICommandsRepository _repository;
+    private readonly IMapper _mapper;
 
+    public PlatformsController(
+        ICommandsRepository commandsRepository,
+        IMapper mapper
+    )
+    {
+        _repository = commandsRepository;
+        _mapper = mapper;
     }
 
     [HttpPost(Name = "TestConnection")]
@@ -27,5 +38,24 @@ public class PlatformsController : ControllerBase
             Console.BackgroundColor = ConsoleColor.Black;
         }
         return result;
+    }
+
+    [HttpGet]
+    public IActionResult GetPlatforms()
+    {
+        IActionResult response = BadRequest();
+        try
+        {
+            Console.WriteLine("--> Getting all Platforms from Command Service");
+            IEnumerable<Platform> platforms = _repository.GetAllPlatforms();
+            response = Ok(_mapper.Map<IEnumerable<PlatformReadDto>>(platforms));
+        }
+        catch (Exception ex)
+        {
+            Console.BackgroundColor = ConsoleColor.Red;
+            Console.WriteLine($"Exception at Platforms > GetPlatforms() => {ex.Message}");
+            Console.BackgroundColor = ConsoleColor.Black;
+        }
+        return response;
     }
 }
