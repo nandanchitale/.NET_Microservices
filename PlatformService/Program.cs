@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using PlatformService.AsyncDataServices.Implementation;
+using PlatformService.AsyncDataServices.Interfaces;
 using PlatformService.Data;
 using PlatformService.Data.IRepository;
 using PlatformService.Data.Repository;
@@ -44,6 +46,10 @@ else
 }
 
 builder.Services.AddHttpClient<ICommandDataClient, HttpCommandDataClient>();
+
+// DI for messgae bus 
+// This is singleton because we want to use same connection throught all application
+builder.Services.AddSingleton<IMessageBusClient, MessageBusClient>();
 
 builder.Services.AddControllers();
 

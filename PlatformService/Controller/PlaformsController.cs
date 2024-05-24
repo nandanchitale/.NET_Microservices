@@ -72,6 +72,7 @@ public class PlatformsController : ControllerBase
             Console.BackgroundColor = ConsoleColor.Red;
             Console.WriteLine($"Exception at GetPlatforms() => {ex.Message}");
             Console.BackgroundColor = ConsoleColor.Black;
+            returnValue = BadRequest();
         }
         return returnValue;
     }
@@ -84,7 +85,7 @@ public class PlatformsController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<PlatformReadDto>> Create(PlatformCreateDto platformCreateDto)
     {
-        ActionResult<PlatformReadDto> returnValue = NotFound();
+        ActionResult<PlatformReadDto> returnValue = BadRequest();
 
         try
         {
