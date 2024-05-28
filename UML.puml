@@ -1,0 +1,17 @@
+@startuml ASP.NET Microservice Application
+
+actor "Commander" as CommandUser
+participant "Command"
+participant "Platform"
+
+CommandUser -> Command : Enters Command for a Platform
+
+Command -> Platform : Sends Command to Platform
+
+Platform -> Platform : Executes command on Platform Specified
+
+Platform -> Command : Returns Respose from Platform
+
+Command -> CommandUser : Returns Respose
+
+@enduml

@@ -59,4 +59,10 @@ public class CommandRepository : ICommandsRepository
         command.PlatformId = platformId;
         _dbContext.Commands.Add(command);
     }
+
+    public bool ExternalPlatformExists(int externalPlatformId){
+        return _dbContext.Platforms.Any(
+            rec=>rec.ExternalId.Equals(externalPlatformId)
+        );
+    }
 }
