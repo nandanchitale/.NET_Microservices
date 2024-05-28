@@ -42,7 +42,7 @@ public class HttpCommandDataClient : ICommandDataClient
         catch (Exception ex)
         {
             Console.BackgroundColor = ConsoleColor.Red;
-            Console.WriteLine($"Exception at HttpCommandDataClient > SendPlatformToCommand() => {ex.Message}");
+            Console.WriteLine($"--> Exception at HttpCommandDataClient > SendPlatformToCommand() => {ex.Message}");
             Console.BackgroundColor = ConsoleColor.Black;
         }
     }

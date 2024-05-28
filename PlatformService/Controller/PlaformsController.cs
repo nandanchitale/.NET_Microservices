@@ -1,5 +1,7 @@
 using AutoMapper;
+using Helpers.Constants.Events;
 using Microsoft.AspNetCore.Mvc;
+using PlatformService.AsyncDataServices.Interfaces;
 using PlatformService.Data.IRepository;
 using PlatformService.DTO;
 using PlatformService.Models;
@@ -15,16 +17,19 @@ public class PlatformsController : ControllerBase
     private readonly IPlatformRepository _platform;
     private readonly IMapper _mapper;
     private ICommandDataClient _commandDataClient;
+    private readonly IMessageBusClient _messageBusClient;
 
     public PlatformsController(
         IPlatformRepository platform,
         IMapper mapper,
-        ICommandDataClient commandDataClient
+        ICommandDataClient commandDataClient,
+        IMessageBusClient messageBusClient
     )
     {
         _mapper = mapper;
         _platform = platform;
         _commandDataClient = commandDataClient;
+        _messageBusClient = messageBusClient;
     }
 
     /// <summary>
@@ -44,7 +49,7 @@ public class PlatformsController : ControllerBase
         catch (Exception ex)
         {
             Console.BackgroundColor = ConsoleColor.Red;
-            Console.WriteLine($"Exception at GetPlatforms() => {ex.Message}");
+            Console.WriteLine($"--> Exception at GetPlatforms() => {ex.Message}");
             Console.BackgroundColor = ConsoleColor.Black;
 
             returnValue = BadRequest();
@@ -70,7 +75,7 @@ public class PlatformsController : ControllerBase
         catch (Exception ex)
         {
             Console.BackgroundColor = ConsoleColor.Red;
-            Console.WriteLine($"Exception at GetPlatforms() => {ex.Message}");
+            Console.WriteLine($"--> Exception at GetPlatforms() => {ex.Message}");
             Console.BackgroundColor = ConsoleColor.Black;
             returnValue = BadRequest();
         }
@@ -95,19 +100,24 @@ public class PlatformsController : ControllerBase
 
             PlatformReadDto platformReadDto = _mapper.Map<PlatformReadDto>(PlatformModel);
 
-            // Demo Code
+            // Send Sync Message
             await _commandDataClient.SendPlatformToCommand(platformReadDto);
 
+            //Send Async Message
+            PlatformPublishedDto platformPublishedDto = _mapper.Map<PlatformPublishedDto>(platformReadDto);
+            platformPublishedDto.Event = PlatformEvents.PLATFORM_PUBLISHED;
+            _messageBusClient.PublishNewPlatform(platformPublishedDto);
+            
             returnValue = CreatedAtRoute(
                 nameof(GetPlatformById),            // route name
-                new { Id = platformReadDto.Id },      // route value
+                new { Id = platformReadDto.Id },    // route value
                 platformReadDto                     // value
             );
         }
         catch (Exception ex)
         {
             Console.BackgroundColor = ConsoleColor.Red;
-            Console.WriteLine($"Exception at GetPlatforms() => {ex.Message}");
+            Console.WriteLine($"--> Exception at GetPlatforms() => {ex.Message}");
             Console.BackgroundColor = ConsoleColor.Black;
         }
         return returnValue;

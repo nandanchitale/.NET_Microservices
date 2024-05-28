@@ -1,3 +1,4 @@
+using Helpers.RabbitMq;
 using Microsoft.Extensions.Configuration;
 using PlatformService.AsyncDataServices.Interfaces;
 using PlatformService.DTO;
@@ -10,29 +11,33 @@ namespace PlatformService.AsyncDataServices.Implementation;
 public class MessageBusClient : IMessageBusClient
 {
     private readonly IConfiguration _configuration;
-
     private readonly IConnection _connection;
     private readonly IModel _channel;
-
-    public MessageBusClient(IConfiguration configuration)
+    private RabbitMQHelper _rabbitMqHelper;
+    private readonly string _rabbitMqHost, _rabbitMqPort = string.Empty;
+    public MessageBusClient(
+        IConfiguration configuration,
+        RabbitMQHelper rabbitMQHelper
+    )
     {
         _configuration = configuration;
-        ConnectionFactory factory = new ConnectionFactory()
-        {
-            HostName = _configuration.GetSection("RabbitMq").GetSection("host").Value,
-            Port = int.Parse(_configuration.GetSection("RabbitMq").GetSection("port").Value)
-        };
+
+        _rabbitMqHost = _configuration["RabbitMq:host"];
+
+        _rabbitMqPort = _configuration["RabbitMq:prot"];
+
+        _rabbitMqHelper = rabbitMQHelper;
 
         try
         {
             // Setup Connection
-            _connection = factory.CreateConnection();
-            _channel = _connection.CreateModel();
+            _connection = _rabbitMqHelper.GetConnection(_configuration);
+            _channel = _rabbitMqHelper.channel;
 
             // Declare exchange
             _channel.ExchangeDeclare(exchange: "trigger", type: ExchangeType.Fanout);
 
-            _connection.ConnectionShutdown += RabbitMQ_ConnectionShutdown;
+            _connection.ConnectionShutdown += _rabbitMqHelper.RabbitMQ_ConnectionShutdown;
 
             Console.WriteLine("--> Connected to RabbitMQ Bus");
         }
@@ -40,7 +45,7 @@ public class MessageBusClient : IMessageBusClient
         {
             Console.BackgroundColor = ConsoleColor.Red;
             Console.WriteLine("--> Could not Connect to message bus");
-            Console.WriteLine($"Exception at MessageBusClient > Constructor() => {ex.Message}");
+            Console.WriteLine($"--> Exception at MessageBusClient > Constructor() => {ex.Message}");
             Console.BackgroundColor = ConsoleColor.Black;
         }
     }
@@ -63,21 +68,7 @@ public class MessageBusClient : IMessageBusClient
         catch (Exception ex)
         {
             Console.BackgroundColor = ConsoleColor.Red;
-            Console.WriteLine($"Exception at MessageBusClient > PublishNewPlatform() => {ex.Message}");
-            Console.BackgroundColor = ConsoleColor.Black;
-        }
-    }
-
-    private void RabbitMQ_ConnectionShutdown(object sender, ShutdownEventArgs args)
-    {
-        try
-        {
-            Console.WriteLine($"--> RabbitMQ Connection Shutdown");
-        }
-        catch (Exception ex)
-        {
-            Console.BackgroundColor = ConsoleColor.Red;
-            Console.WriteLine($"Exception at MessageBusClient > RabbitMQ_ConnectionShutdown() => {ex.Message}");
+            Console.WriteLine($"--> Exception at MessageBusClient > PublishNewPlatform() => {ex.Message}");
             Console.BackgroundColor = ConsoleColor.Black;
         }
     }
@@ -99,26 +90,7 @@ public class MessageBusClient : IMessageBusClient
         catch (Exception ex)
         {
             Console.BackgroundColor = ConsoleColor.Red;
-            Console.WriteLine($"Exception at MessageBusClient > SendMessage() => {ex.Message}");
-            Console.BackgroundColor = ConsoleColor.Black;
-        }
-    }
-
-    public void Dispose()
-    {
-        try
-        {
-            Console.WriteLine("--> MessageBus Disposed");
-            if (_channel.IsOpen)
-            {
-                _channel.Close();
-                _connection.Close();
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.BackgroundColor = ConsoleColor.Red;
-            Console.WriteLine($"Exception at MessageBusClient > Dispose() => {ex.Message}");
+            Console.WriteLine($"--> Exception at MessageBusClient > SendMessage() => {ex.Message}");
             Console.BackgroundColor = ConsoleColor.Black;
         }
     }

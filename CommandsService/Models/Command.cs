@@ -12,7 +12,7 @@ public class Command
     public string HowTo { get; set; }
 
     [Required]
-    public int CommandLine { get; set; }
+    public string CommandLine { get; set; }
 
     [Required]
     public int PlatformId { get; set; } // Foreign key to Platform

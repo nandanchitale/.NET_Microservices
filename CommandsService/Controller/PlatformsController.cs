@@ -34,7 +34,7 @@ public class PlatformsController : ControllerBase
         catch (Exception ex)
         {
             Console.BackgroundColor = ConsoleColor.Red;
-            Console.WriteLine($"Exception at Platforms > TestInboundConnection() => {ex.Message}");
+            Console.WriteLine($"--> Exception at Platforms > TestInboundConnection() => {ex.Message}");
             Console.BackgroundColor = ConsoleColor.Black;
         }
         return result;
@@ -53,7 +53,7 @@ public class PlatformsController : ControllerBase
         catch (Exception ex)
         {
             Console.BackgroundColor = ConsoleColor.Red;
-            Console.WriteLine($"Exception at Platforms > GetPlatforms() => {ex.Message}");
+            Console.WriteLine($"--> Exception at Platforms > GetPlatforms() => {ex.Message}");
             Console.BackgroundColor = ConsoleColor.Black;
         }
         return response;

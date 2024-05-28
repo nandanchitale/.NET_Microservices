@@ -1,3 +1,4 @@
+using Helpers.RabbitMq;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -44,6 +45,8 @@ else
         opt => opt.UseInMemoryDatabase("InMemoryDb")
     );
 }
+
+builder.Services.AddSingleton<RabbitMQHelper>();
 
 builder.Services.AddHttpClient<ICommandDataClient, HttpCommandDataClient>();
 

@@ -1,3 +1,4 @@
+using System.Text.Json;
 using AutoMapper;
 using CommandsService.Data.IRepository;
 using CommandsService.DTO;
@@ -36,7 +37,7 @@ public class CommandsController : ControllerBase
         catch (Exception ex)
         {
             Console.BackgroundColor = ConsoleColor.Red;
-            Console.WriteLine($"Exception at Commands > GetCommandsForPlatform() => {ex.Message}");
+            Console.WriteLine($"--> Exception at Commands > GetCommandsForPlatform() => {ex.Message}");
             Console.BackgroundColor = ConsoleColor.Black;
         }
         return response;
@@ -63,7 +64,7 @@ public class CommandsController : ControllerBase
         catch (Exception ex)
         {
             Console.BackgroundColor = ConsoleColor.Red;
-            Console.WriteLine($"Exception at Commands > GetCommandForPlatform() => {ex.Message}");
+            Console.WriteLine($"--> Exception at Commands > GetCommandForPlatform() => {ex.Message}\n{ex.StackTrace}");
             Console.BackgroundColor = ConsoleColor.Black;
         }
         return response;
@@ -76,13 +77,18 @@ public class CommandsController : ControllerBase
         try
         {
             Console.WriteLine($"--> Hit CreateCommandForPlatform : {platformId}");
+            Console.WriteLine($"--> Command : {commandDto.HowTo} | {commandDto.CommandLine}");
+            Console.WriteLine($"--> _repository.PlatFormExists(platformId) : {_repository.PlatFormExists(platformId)}");
             if (_repository.PlatFormExists(platformId))
             {
                 Command command = _mapper.Map<Command>(commandDto);
+                Console.WriteLine($"Command: {JsonSerializer.Serialize(command)}");
                 _repository.CreateCommand(platformId, command);
-                _repository.saveChanges();
+                _repository.SaveChanges();
+                Console.WriteLine($"--> Command Created for platform ID {platformId}");
 
                 CommandReadDto commandReadDto = _mapper.Map<CommandReadDto>(command);
+
                 response = CreatedAtRoute(
                     nameof(GetCommandForPlatform),
                     new {
@@ -96,8 +102,9 @@ public class CommandsController : ControllerBase
         catch (Exception ex)
         {
             Console.BackgroundColor = ConsoleColor.Red;
-            Console.WriteLine($"Exception at Commands > CreateCommandForPlatform() => {ex.Message}");
+            Console.WriteLine($"--> Exception at Commands > CreateCommandForPlatform() => {ex.Message}\nStacktrace : {ex.StackTrace}");
             Console.BackgroundColor = ConsoleColor.Black;
+            response = BadRequest();
         }
         return response;
     }

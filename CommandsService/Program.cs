@@ -1,6 +1,10 @@
 using CommandsService.Data;
 using CommandsService.Data.IRepository;
 using CommandsService.Data.Repository;
+using CommandsService.DataService.Async;
+using CommandsService.EventProcessing.Implementations;
+using CommandsService.EventProcessing.Interfaces;
+using Helpers.RabbitMq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -26,10 +30,17 @@ builder.Services.AddDbContext<AppDbContext>(
   option => option.UseInMemoryDatabase("InMem")
 );
 
+builder.Services.AddSingleton<RabbitMQHelper>();
+
 // Command Repository for DI
 builder.Services.AddScoped<ICommandsRepository, CommandRepository>();
 
 builder.Services.AddControllers();
+
+builder.Services.AddHostedService<MessageBusSubscriber>();
+
+// Adding Evnet Processor As singleton to use it as message bus subscriber
+builder.Services.AddSingleton<IEventProcessor, EventProcessor>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

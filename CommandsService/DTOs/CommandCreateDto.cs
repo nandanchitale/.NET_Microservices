@@ -9,4 +9,5 @@ public class CommandCreateDto
 
     [Required]
     public string CommandLine { get; set; }
+
 }
