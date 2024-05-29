@@ -133,9 +133,19 @@
               "target": "Package",
               "version": "[12.0.1, )"
             },
+            "Grpc.AspNetCore": {
+              "target": "Package",
+              "version": "[2.63.0, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[8.0.4, )"
+            },
+            "Microsoft.CodeAnalysis.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.3.4, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
@@ -156,6 +166,12 @@
             "RabbitMQ.client": {
               "target": "Package",
               "version": "[6.8.1, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

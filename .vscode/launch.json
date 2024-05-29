@@ -9,9 +9,9 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${workspaceFolder}/CommandsService/bin/Debug/net8.0/CommandsService.dll",
+      "program": "bin/Debug/net8.0/CommandsService.dll",
       "args": [],
-      "cwd": "${workspaceFolder}",
+      "cwd": "${workspaceFolder}/CommandsService",
       "stopAtEntry": false,
       "serverReadyAction": {
         "action": "openExternally",
@@ -30,9 +30,9 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${workspaceFolder}/PlatformService/bin/Debug/net8.0/PlatformService.dll",
+      "program": "bin/Debug/net8.0/PlatformService.dll",
       "args": [],
-      "cwd": "${workspaceFolder}",
+      "cwd": "${workspaceFolder}/PlatformService",
       "stopAtEntry": false,
       "serverReadyAction": {
         "action": "openExternally",

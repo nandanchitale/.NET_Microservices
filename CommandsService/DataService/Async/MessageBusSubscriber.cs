@@ -1,12 +1,12 @@
 
-using System.Reflection;
-using System.Text;
-using System.Threading.Channels;
 using CommandsService.EventProcessing.Interfaces;
 using Helpers.RabbitMq;
 using Microsoft.AspNetCore.Connections;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using System.Reflection;
+using System.Text;
+using System.Threading.Channels;
 
 namespace CommandsService.DataService.Async;
 
@@ -64,7 +64,7 @@ public class MessageBusSubscriber : BackgroundService
             // Setup Connection
             _connection = _rabbitMqHelper.GetConnection(
                host: _configuration["RabbitMq:host"],
-               port:_configuration["RabbitMq:port"]
+               port: _configuration["RabbitMq:port"]
             );
             _channel = _rabbitMqHelper.channel;
             _queueName = _channel.QueueDeclare().QueueName;

@@ -1,3 +1,5 @@
 {
-    "dotnet.defaultSolution": "PlatformService.sln"
+  "dotnet.defaultSolution": "PlatformService.sln",
+  "omnisharp.enableRoslynAnalyzers": true,
+  "omnisharp.enableEditorConfigSupport": true
 }

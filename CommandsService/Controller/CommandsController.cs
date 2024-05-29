@@ -1,9 +1,9 @@
-using System.Text.Json;
 using AutoMapper;
 using CommandsService.Data.IRepository;
 using CommandsService.DTO;
 using CommandsService.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace CommandsService.Controllers;
 
@@ -91,10 +91,11 @@ public class CommandsController : ControllerBase
 
                 response = CreatedAtRoute(
                     nameof(GetCommandForPlatform),
-                    new {
+                    new
+                    {
                         platformId = platformId,
                         commandId = commandReadDto.Id
-                    }, 
+                    },
                     commandReadDto
                 );
             }

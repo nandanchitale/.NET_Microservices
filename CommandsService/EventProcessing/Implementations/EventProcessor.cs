@@ -1,10 +1,10 @@
-using System.Text.Json;
 using AutoMapper;
 using CommandsService.Data.IRepository;
 using CommandsService.DTO;
 using CommandsService.EventProcessing.Interfaces;
 using CommandsService.Models;
 using Helpers.Constants.Events;
+using System.Text.Json;
 
 namespace CommandsService.EventProcessing.Implementations;
 
@@ -34,7 +34,8 @@ public class EventProcessor : IEventProcessor
         try
         {
             EventType eventType = DetermineEvent(message);
-            switch(eventType){
+            switch (eventType)
+            {
                 case EventType.PlatformPublished:
                     AddPlatform(message);
                     break;
@@ -54,21 +55,26 @@ public class EventProcessor : IEventProcessor
     /// Method to Add event to database
     /// </summary>
     /// <param name="message"></param>
-    private void AddPlatform(string platformPubliedMessage){
-        try{
-            using (IServiceScope scope = _scopeFactory.CreateScope()){
+    private void AddPlatform(string platformPubliedMessage)
+    {
+        try
+        {
+            using (IServiceScope scope = _scopeFactory.CreateScope())
+            {
                 ICommandsRepository repository = scope.ServiceProvider.GetRequiredService<ICommandsRepository>();
 
                 PlatformPublishDto platformPublishDto = JsonSerializer.Deserialize<PlatformPublishDto>(platformPubliedMessage);
 
                 Platform platform = _mapper.Map<Platform>(platformPublishDto);
 
-                if(!repository.ExternalPlatformExists(platform.ExternalId)){
+                if (!repository.ExternalPlatformExists(platform.ExternalId))
+                {
                     repository.CreatePlatform(platform);
                     repository.SaveChanges();
                     Console.WriteLine("--> Platform Added Successfully");
                 }
-                else{
+                else
+                {
                     Console.WriteLine("--> Platform Already Exists");
                 }
             };
