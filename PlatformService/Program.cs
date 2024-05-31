@@ -35,7 +35,7 @@ if (builder.Environment.IsProduction())
     Console.WriteLine($"--> Application Environment IsProduction ? {builder.Environment.IsProduction()}");
     Console.WriteLine("--> Using SQL Server DB");
     Console.WriteLine($"--> Connection String : {builder.Configuration.GetConnectionString("PlatformsConnection")}");
-    builder.Services.AddDbContext<AppDbContext>(
+    _ = builder.Services.AddDbContext<AppDbContext>(
         opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("PlatformsConnection"))
     );
 }
@@ -43,7 +43,7 @@ if (builder.Environment.IsProduction())
 else
 {
     Console.WriteLine("--> Using InMem DB");
-    builder.Services.AddDbContext<AppDbContext>(
+    _ = builder.Services.AddDbContext<AppDbContext>(
         opt => opt.UseInMemoryDatabase("InMemoryDb")
     );
 }
@@ -75,14 +75,14 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
 
-    app.UseSwaggerUI(options => // UseSwaggerUI is called only in Development.
+    _ = app.UseSwaggerUI(options => // UseSwaggerUI is called only in Development.
     {
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
         options.RoutePrefix = String.Empty;
     });
 
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    _ = app.UseSwagger();
+    _ = app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
@@ -91,13 +91,14 @@ app.UseRouting();
 
 app.UseEndpoints(endpoints =>
 {
-    app.MapControllers();
-    endpoints.MapGrpcService<GrpcPlatformService>();
+    _ = app.MapControllers();
+    _ = endpoints.MapGrpcService<GrpcPlatformService>();
 
     // optional
-    endpoints.MapGet(
+    _ = endpoints.MapGet(
         "/protos/platforms.proto",
-        async context => {
+        async context =>
+        {
             await context.Response.WriteAsync(
                 File.ReadAllText("Protos/platforms.proto")
             );
