@@ -42,7 +42,7 @@ namespace PlatformService.DataServices.Sync.Grpc
             catch (Exception ex)
             {
                 Console.BackgroundColor = ConsoleColor.Red;
-                Console.WriteLine($"--> Exception at GetPlatforms() => {ex.Message}");
+                Console.WriteLine($"--> Exception at GrpcPlatformService > GetPlatforms() => {ex.Message}");
                 Console.BackgroundColor = ConsoleColor.Black;
             }
             return response;

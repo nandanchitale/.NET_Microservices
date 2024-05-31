@@ -32,6 +32,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Helpers\Helpers.csproj" />
-    <Protobuf Include="Protos\Platforms.proto" GrpcServices="Server" />
+    <Protobuf Include="Protos\Platforms.proto" GrpcServices="Client" />
   </ItemGroup>
 </Project>

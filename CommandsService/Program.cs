@@ -2,6 +2,8 @@ using CommandsService.Data;
 using CommandsService.Data.IRepository;
 using CommandsService.Data.Repository;
 using CommandsService.DataService.Async;
+using CommandsService.DataService.Sync.Grpc.Implementations;
+using CommandsService.DataService.Sync.Grpc.Interfaces;
 using CommandsService.EventProcessing.Implementations;
 using CommandsService.EventProcessing.Interfaces;
 using Helpers.RabbitMq;
@@ -29,6 +31,9 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddDbContext<AppDbContext>(
   option => option.UseInMemoryDatabase("InMem")
 );
+
+// Grpc DI
+builder.Services.AddScoped<IPlatformDataClient, PlatformDataClient>();
 
 builder.Services.AddSingleton<RabbitMQHelper>();
 
@@ -62,5 +67,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapControllers();
+
+PrepareDb.PrepPopulation(app, app.Environment.IsDevelopment());
 
 app.Run();
