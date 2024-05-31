@@ -1,25 +1,28 @@
 {
   "format": 1,
   "restore": {
-    "/home/nandan/Documents/dotnet_microservices/PlatformService/PlatformService.csproj": {}
+    "C:\\Users\\nandan.chitale\\Documents\\Projects\\R&D\\ASP_DOTNET_Microservices\\PlatformService\\PlatformService.csproj": {}
   },
   "projects": {
-    "/home/nandan/Documents/dotnet_microservices/Helpers/Helpers.csproj": {
+    "C:\\Users\\nandan.chitale\\Documents\\Projects\\R&D\\ASP_DOTNET_Microservices\\Helpers\\Helpers.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/nandan/Documents/dotnet_microservices/Helpers/Helpers.csproj",
+        "projectUniqueName": "C:\\Users\\nandan.chitale\\Documents\\Projects\\R&D\\ASP_DOTNET_Microservices\\Helpers\\Helpers.csproj",
         "projectName": "Helpers",
-        "projectPath": "/home/nandan/Documents/dotnet_microservices/Helpers/Helpers.csproj",
-        "packagesPath": "/home/nandan/.nuget/packages/",
-        "outputPath": "/home/nandan/Documents/dotnet_microservices/Helpers/obj/",
+        "projectPath": "C:\\Users\\nandan.chitale\\Documents\\Projects\\R&D\\ASP_DOTNET_Microservices\\Helpers\\Helpers.csproj",
+        "packagesPath": "C:\\Users\\nandan.chitale\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\nandan.chitale\\Documents\\Projects\\R&D\\ASP_DOTNET_Microservices\\Helpers\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/nandan/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\nandan.chitale\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -32,6 +35,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -71,34 +79,37 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.105/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/home/nandan/Documents/dotnet_microservices/PlatformService/PlatformService.csproj": {
+    "C:\\Users\\nandan.chitale\\Documents\\Projects\\R&D\\ASP_DOTNET_Microservices\\PlatformService\\PlatformService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/nandan/Documents/dotnet_microservices/PlatformService/PlatformService.csproj",
+        "projectUniqueName": "C:\\Users\\nandan.chitale\\Documents\\Projects\\R&D\\ASP_DOTNET_Microservices\\PlatformService\\PlatformService.csproj",
         "projectName": "PlatformService",
-        "projectPath": "/home/nandan/Documents/dotnet_microservices/PlatformService/PlatformService.csproj",
-        "packagesPath": "/home/nandan/.nuget/packages/",
-        "outputPath": "/home/nandan/Documents/dotnet_microservices/PlatformService/obj/",
+        "projectPath": "C:\\Users\\nandan.chitale\\Documents\\Projects\\R&D\\ASP_DOTNET_Microservices\\PlatformService\\PlatformService.csproj",
+        "packagesPath": "C:\\Users\\nandan.chitale\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\nandan.chitale\\Documents\\Projects\\R&D\\ASP_DOTNET_Microservices\\PlatformService\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/nandan/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\nandan.chitale\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/home/nandan/Documents/dotnet_microservices/Helpers/Helpers.csproj": {
-                "projectPath": "/home/nandan/Documents/dotnet_microservices/Helpers/Helpers.csproj"
+              "C:\\Users\\nandan.chitale\\Documents\\Projects\\R&D\\ASP_DOTNET_Microservices\\Helpers\\Helpers.csproj": {
+                "projectPath": "C:\\Users\\nandan.chitale\\Documents\\Projects\\R&D\\ASP_DOTNET_Microservices\\Helpers\\Helpers.csproj"
               }
             }
           }
@@ -107,6 +118,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -179,7 +195,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.105/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

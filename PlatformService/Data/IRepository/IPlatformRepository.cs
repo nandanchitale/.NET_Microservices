@@ -2,7 +2,8 @@ using PlatformService.Models;
 
 namespace PlatformService.Data.IRepository;
 
-public interface IPlatformRepository{
+public interface IPlatformRepository
+{
     bool SaveChanges();
 
     IEnumerable<Platform> GetAllPlatforms();

@@ -1,6 +1,6 @@
 using AutoMapper;
 using Grpc.Core;
-using Microsoft.CodeAnalysis;
+using Microsoft.AspNetCore.Http.HttpResults;
 using PlatformService.Data.IRepository;
 using Platform = PlatformService.Models.Platform;
 
@@ -25,25 +25,27 @@ namespace PlatformService.DataServices.Sync.Grpc
             ServerCallContext context
         )
         {
+            Task<PlatformResponse> response = null;
             try
             {
-                PlatformResponse response = new PlatformResponse();
+                PlatformResponse platformResponse = new PlatformResponse();
                 IEnumerable<Platform> platforms = _platformRepository.GetAllPlatforms();
 
-                foreach(Platform platform in platforms){
-                    response.Platform.Add(
+                foreach (Platform platform in platforms)
+                {
+                    platformResponse.Platform.Add(
                         _mapper.Map<GrpcPlatformModel>(platform)
                     );
                 }
-                return Task.FromResult(response);
+                response = Task.FromResult(platformResponse);
             }
             catch (Exception ex)
             {
                 Console.BackgroundColor = ConsoleColor.Red;
                 Console.WriteLine($"--> Exception at GetPlatforms() => {ex.Message}");
                 Console.BackgroundColor = ConsoleColor.Black;
-                return null;
             }
+            return response;
         }
     }
 }

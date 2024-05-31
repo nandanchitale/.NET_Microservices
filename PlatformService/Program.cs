@@ -2,11 +2,13 @@ using Helpers.RabbitMq;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using PlatformService;
 using PlatformService.AsyncDataServices.Implementation;
 using PlatformService.AsyncDataServices.Interfaces;
 using PlatformService.Data;
 using PlatformService.Data.IRepository;
 using PlatformService.Data.Repository;
+using PlatformService.DataServices.Sync.Grpc;
 using PlatformService.SyncDataServices.Implementation;
 using PlatformService.SyncDataServices.Interfaces;
 
@@ -46,6 +48,9 @@ else
     );
 }
 
+// Grpc
+builder.Services.AddGrpc();
+
 builder.Services.AddSingleton<RabbitMQHelper>();
 
 builder.Services.AddHttpClient<ICommandDataClient, HttpCommandDataClient>();
@@ -82,7 +87,23 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapControllers();
+app.UseRouting();
+
+app.UseEndpoints(endpoints =>
+{
+    app.MapControllers();
+    endpoints.MapGrpcService<GrpcPlatformService>();
+
+    // optional
+    endpoints.MapGet(
+        "/protos/platforms.proto",
+        async context => {
+            await context.Response.WriteAsync(
+                File.ReadAllText("Protos/platforms.proto")
+            );
+        }
+    );
+});
 
 PrepareDb.PrepPopulation(app, app.Environment.IsProduction());
 
