@@ -42,3 +42,6 @@ kubectl create secret <type> <name> --from-literal=SA_PASSWORD="<password>"
 
 # Get list of secrets
 kubectl get secrets
+
+# Create Secrets
+kubectl create secret generic <name> --from-literal="<key>"="<value>"
