@@ -41,6 +41,7 @@ public class HttpCommandDataClient : ICommandDataClient
         }
         catch (Exception ex)
         {
+            // Logs an error message to the console with a red background color.
             Console.BackgroundColor = ConsoleColor.Red;
             Console.WriteLine($"--> Exception at HttpCommandDataClient > SendPlatformToCommand() => {ex.Message}");
             Console.BackgroundColor = ConsoleColor.Black;

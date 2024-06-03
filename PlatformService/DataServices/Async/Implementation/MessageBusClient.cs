@@ -43,6 +43,7 @@ public class MessageBusClient : IMessageBusClient
         }
         catch (Exception ex)
         {
+            // Logs an error message to the console with a red background color.
             Console.BackgroundColor = ConsoleColor.Red;
             Console.WriteLine("--> Could not Connect to message bus");
             Console.WriteLine($"--> Exception at MessageBusClient > Constructor() => {ex.Message}");
@@ -67,6 +68,7 @@ public class MessageBusClient : IMessageBusClient
         }
         catch (Exception ex)
         {
+            // Logs an error message to the console with a red background color.
             Console.BackgroundColor = ConsoleColor.Red;
             Console.WriteLine($"--> Exception at MessageBusClient > PublishNewPlatform() => {ex.Message}");
             Console.BackgroundColor = ConsoleColor.Black;
@@ -89,6 +91,7 @@ public class MessageBusClient : IMessageBusClient
         }
         catch (Exception ex)
         {
+            // Logs an error message to the console with a red background color.
             Console.BackgroundColor = ConsoleColor.Red;
             Console.WriteLine($"--> Exception at MessageBusClient > SendMessage() => {ex.Message}");
             Console.BackgroundColor = ConsoleColor.Black;

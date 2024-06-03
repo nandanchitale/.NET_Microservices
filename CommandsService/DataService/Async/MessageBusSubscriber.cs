@@ -79,6 +79,7 @@ public class MessageBusSubscriber : BackgroundService
         }
         catch (Exception ex)
         {
+            // Logs an error message to the console with a red background color.
             Console.BackgroundColor = ConsoleColor.Red;
             Console.WriteLine($"--> Exception at MessageBusSubscriber > InittilizeRabbitMQ() => {ex.Message}");
             Console.BackgroundColor = ConsoleColor.Black;
@@ -123,6 +124,7 @@ public class MessageBusSubscriber : BackgroundService
         }
         catch (Exception ex)
         {
+            // Logs an error message to the console with a red background color.
             Console.BackgroundColor = ConsoleColor.Red;
             Console.WriteLine($"--> Exception at MessageBusSubscriber > InittilizeRabbitMQ() => {ex.Message}");
             Console.BackgroundColor = ConsoleColor.Black;

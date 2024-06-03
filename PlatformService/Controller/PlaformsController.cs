@@ -55,6 +55,7 @@ public class PlatformsController : ControllerBase
         }
         catch (Exception ex)
         {
+            // Logs an error message to the console with a red background color.
             Console.BackgroundColor = ConsoleColor.Red;
             Console.WriteLine($"--> Exception at GetPlatforms() => {ex.Message}");
             Console.BackgroundColor = ConsoleColor.Black;
@@ -81,6 +82,7 @@ public class PlatformsController : ControllerBase
         }
         catch (Exception ex)
         {
+            // Logs an error message to the console with a red background color.
             Console.BackgroundColor = ConsoleColor.Red;
             Console.WriteLine($"--> Exception at GetPlatforms() => {ex.Message}");
             Console.BackgroundColor = ConsoleColor.Black;
@@ -123,6 +125,7 @@ public class PlatformsController : ControllerBase
         }
         catch (Exception ex)
         {
+            // Logs an error message to the console with a red background color.
             Console.BackgroundColor = ConsoleColor.Red;
             Console.WriteLine($"--> Exception at GetPlatforms() => {ex.Message}");
             Console.BackgroundColor = ConsoleColor.Black;
