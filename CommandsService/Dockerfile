@@ -9,9 +9,14 @@ FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG configuration=Release
 WORKDIR /src
 COPY ["CommandsService/CommandsService.csproj", "CommandsService/"]
+COPY ["Helpers/Helpers.csproj", "Helpers/"]
+
+RUN dotnet restore "Helpers/Helpers.csproj"
 RUN dotnet restore "CommandsService/CommandsService.csproj"
+
 COPY . .
 WORKDIR "/src/CommandsService"
+
 RUN dotnet build "CommandsService.csproj" -c $configuration -o /app/build
 
 FROM build AS publish

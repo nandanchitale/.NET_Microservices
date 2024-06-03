@@ -35,10 +35,8 @@ public class PrepareDb
             Console.WriteLine("Seeding new Platforms...");
             foreach (Platform platform in platforms)
             {
-                if (!repository.ExternalPlatformExists(platform.ExternalId))
-                {
+                if (!repository.ExternalPlatformExists(platform.ExternalId)) 
                     repository.CreatePlatform(platform);
-                }
             }
             repository.SaveChanges();
         }

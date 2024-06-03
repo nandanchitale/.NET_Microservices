@@ -18,14 +18,14 @@
 				"build"
 			],
 			"dockerBuild": {
-				"tag": "dotnetmicroservices:dev",
+				"tag": "aspdotnetmicroservices:dev",
 				"target": "base",
-				"dockerfile": "${workspaceFolder}/PlatformService/Dockerfile",
+				"dockerfile": "${workspaceFolder}/CommandsService/Dockerfile",
 				"context": "${workspaceFolder}",
 				"pull": true
 			},
 			"netCore": {
-				"appProject": "${workspaceFolder}/PlatformService/PlatformService.csproj"
+				"appProject": "${workspaceFolder}/CommandsService/CommandsService.csproj"
 			}
 		},
 		{
@@ -35,8 +35,8 @@
 				"build"
 			],
 			"dockerBuild": {
-				"tag": "dotnetmicroservices:latest",
-				"dockerfile": "${workspaceFolder}/PlatformService/Dockerfile",
+				"tag": "aspdotnetmicroservices:latest",
+				"dockerfile": "${workspaceFolder}/CommandsService/Dockerfile",
 				"context": "${workspaceFolder}",
 				"platform": {
 					"os": "linux",
@@ -45,7 +45,7 @@
 				"pull": true
 			},
 			"netCore": {
-				"appProject": "${workspaceFolder}/PlatformService/PlatformService.csproj"
+				"appProject": "${workspaceFolder}/CommandsService/CommandsService.csproj"
 			}
 		},
 		{
@@ -56,7 +56,7 @@
 			],
 			"dockerRun": {},
 			"netCore": {
-				"appProject": "${workspaceFolder}/PlatformService/PlatformService.csproj",
+				"appProject": "${workspaceFolder}/CommandsService/CommandsService.csproj",
 				"enableDebugging": true
 			}
 		},
@@ -68,7 +68,7 @@
 			],
 			"dockerRun": {},
 			"netCore": {
-				"appProject": "${workspaceFolder}/PlatformService/PlatformService.csproj"
+				"appProject": "${workspaceFolder}/CommandsService/CommandsService.csproj"
 			}
 		}
 	]
